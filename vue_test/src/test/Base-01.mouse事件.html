@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .box1 {
+            background-color: red;
+            height: 200px;
+            width: 200px;
+        }
+        .box2 {
+            background-color: #e3e3e3;
+            height: 100px;
+            width: 100px;
+        }
+    </style>
+</head>
+<body>
+<!--
+  onmouseover: 鼠标悬停，如果盒子有子盒子，当鼠标悬停的子盒子的时候，事件冒泡。
+  onmouseenter: 鼠标进入，包括进入子盒子，都是在盒子中。
+  onmouseout: 鼠标离开事件，当进入到盒子的子盒子，也是out。
+  onmouseleave: 鼠标的离开事件，与子盒子无关。
+-->
+
+<div class="box1" onmouseenter="javascript: console.log('5555555');"
+     onmouseleave="javascript: console.log('000000000');">
+    <div class="box2"></div>
+</div>
+</body>
+</html>

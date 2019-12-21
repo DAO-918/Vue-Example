@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        #app {
+            width: 400px;
+            margin: 100px auto 0;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <input v-model="searchText">
+    <table border="1" style="text-align: center;" cellspacing="0" cellpadding="0" width="100%">
+        <tr>
+            <th>ID</th>
+            <th>姓名</th>
+            <th>年龄</th>
+        </tr>
+        <tr v-for="user in filterUsers">
+            <td>{{user.id}}</td>
+            <td>{{user.name}}</td>
+            <td>{{user.age}}</td>
+        </tr>
+    </table>
+    <button @click="orderByAge(1)">升序</button>
+    <button @click="orderByAge(2)">降序</button>
+    <button @click="orderByAge(3)">不排序</button>
+</div>
+
+</body>
+<script>
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                users: [
+                    {id: 1, name: 'zhangsan', age: 22},
+                    {id: 2, name: 'lisi', age: 12},
+                    {id: 3, name: 'wangwu', age: 42},
+                    {id: 4, name: 'zhaoliu', age: 32},
+                    {id: 5, name: 'tianqi', age: 28},
+                    {id: 6, name: 'dahuang', age: 36},
+                ],
+                searchText: '',
+                order: 3
+            }
+        },
+        computed: {
+            filterUsers: function() {
+                let searchText = this.searchText;
+                let order = this.order;
+                // 根据名字过滤
+                let newUsers = this.users.filter(user => user.name.indexOf(searchText) > -1);
+
+                // 排序
+                if(order != 3) {
+                    newUsers.sort((u1, u2) => {
+                        if(order == 1) {
+                            return u1.age - u2.age;
+                        }else {
+                            return u2.age - u1.age;
+                        }
+                    });
+                }
+
+                return newUsers;
+
+                // String s = "helloworld";
+                // s.indexOf('worlx'); // -1
+            }
+        },
+        methods: {
+            orderByAge(value) {
+                this.order = value;
+            }
+        }
+    })
+</script>
+</html>

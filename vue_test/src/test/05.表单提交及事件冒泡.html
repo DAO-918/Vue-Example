@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        .box1{
+            background-color: red;
+            height: 200px;
+            width: 200px;
+        }
+        .box2{
+            background-color: #e3e3e3;
+            height: 100px;
+            width: 100px;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <!--阻止表单的提交-->
+    <form>
+        <input type="submit" onclick="return subData" value="提交">
+        <input type="submit" onclick="javascript:return false;" value="提交">
+    </form>
+    <!--点击内部div会触发外部div的点击事件-->
+    <div class="box1" onclick="javascript:alert('outter box')">
+        <div class="box2" onclick="javascript:alert('inner box')"></div>
+    </div>
+    <!--阻止事件冒泡，阻止外部div的事件的触发-->
+    <div class="box1" onclick="javascript:alert('outter box')">
+        <div class="box2" onclick="clickInnerBox(event)"></div>
+    </div>
+
+</div>
+
+<div id="app">
+    <form>
+        <!-- click.prevent是阻止表单的默认提交事件 -->
+        <input type="text" v-model="name">
+        <button @click.prevent="getName">提交</button>
+    </form>
+    <div class="box1" @click="alertOutterBox">
+        <!-- click.stop阻止冒泡事件 -->
+        <div class="box2" @click.stop="alertInnerBox"></div>    </div>
+</div>
+</body>
+<script>
+    function subData() {
+        return false;
+    }
+    function clickInnerBox(event) {
+        event.stopPropagation();
+    }
+</script>
+<script>
+    new Vue({
+        el: '#app',
+        data(){
+            return{
+                name:'abc'
+            }
+        },
+        method:{
+            getName(index) {
+                return this.name;
+            },
+            alertOutterBox() {
+                alert('outter box');
+            },
+            alertInnerBox() {
+                alert('inner box');
+            },
+        }
+    })
+</script>
+</html>

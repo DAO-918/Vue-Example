@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <p v-text="name"></p>
+    <p v-text="htmlText"></p>
+    <p v-html="htmlText"></p>
+    <!-- -->
+    <p v-if="age > 40">
+        中年
+    </p>
+    <p v-else-if="age > 30">
+        青年
+    </p>
+    <p v-else>
+        少年
+    </p>
+    <ul>
+        <li v-for="user in users">
+            {{user.id}} -- {{user.name}}
+        </li>
+    </ul>
+    <div v-show="age > 30">
+        v-show: 年龄大于30岁
+    </div>
+    <div v-if="age == 30">
+        v-if: 年龄等于30岁
+    </div>
+    <div v-if="age > 30">
+        v-if: 年龄大于30岁
+    </div>
+
+    <!-- v-on可以直接使用 @符号来代替 -->
+    <button @click="getAge">点击</button>
+
+</div>
+</body>
+<script>
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                name: '张三',
+                htmlText: '<a href="http://www.baidu.com">百度</a>',
+                age: 30,
+                users: [
+                    {id: 1, name: 'zhang'},
+                    {id: 2, name: 'lisis'},
+                    {id: 3, name: 'wang'},
+                ]
+            }
+        },
+        methods: {
+            getAge() {
+                // 如果method中要使用 vue data中的数据，都需要带上this
+                alert(this.name);
+            }
+        }
+    })
+</script>
+</html>

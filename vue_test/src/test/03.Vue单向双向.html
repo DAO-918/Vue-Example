@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    FirstName: <input type="text" v-model="firstName"> <br>
+    LastName: <input type="text" v-model="lastName"> <br>
+    FullName(单向数据绑定): <input type="text" v-model="fullName1"> <br>
+    FulltName(单向数据绑定): <input type="text" v-model="fullName2"> <br>
+    FulltName(双向数据绑定): <input type="text" v-model="fullName3"> <br>
+</div>
+</body>
+<script>
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                firstName: '',
+                lastName: '',
+                fullName2: '',
+            }
+        },
+        // 计算属性
+        computed: {
+            /**
+             * 回调方法: 1.定义了; 2.没有显示的调用; 3.它却触发了。  $.ajax({success: function(_data) {}})
+             * 1.计算属性的值，不用在data中定义，直接使用
+             * 2.计算属性是对应着一个 回调方法.
+             * 3.该方法触发时机是：其中只要牵扯到属性发生变化，该方法就会得到触发。
+             * 4.在使用的时候，首先需要将要用到属性局部赋值，因为如果方法内部嵌套的太深，方法可能不会得到触发。
+             */
+            fullName1: function() {
+                let firstName = this.firstName;
+                let lastName = this.lastName;
+
+                return firstName + ' ' + lastName;
+            },
+            /**
+             fullName1: {
+                get() {
+                    let firstName = this.firstName;
+                    let lastName = this.lastName;
+
+                    return firstName + ' ' + lastName;
+                }
+            }
+             */
+
+            fullName3: {
+                // 中只要牵扯到属性发生变化，该方法就会得到触发。
+                get() {
+                    let firstName = this.firstName;
+                    let lastName = this.lastName;
+                    return firstName + ' ' + lastName;
+                },
+                // fullName3发生变化，该方法会得到触发
+                set(value) {
+                    let names = value.split(/\s+/);
+                    this.firstName = names[0];
+                    this.lastName = names[1];
+                }
+            }
+        },
+        watch: {
+            firstName: function(newVal, oldVal) {
+                //console.log(newVal, oldVal);
+                this.fullName2 = newVal + ' ' + this.lastName;
+            },
+            lastName: function(newVal, oldVal) {
+                this.fullName2 = this.firstName + ' ' + newVal;
+            }
+        }
+    })
+</script>
+</html>

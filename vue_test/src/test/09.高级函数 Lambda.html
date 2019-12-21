@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+</body>
+<script>
+    let arr = [34, 56, 89, 90, 100, 45];
+    let newArr = [];
+
+    // for(var i = 0; i < arr.length; i++) {
+    //     if(arr[i] > 50) {
+    //         newArr.push(arr[i]);
+    //     }
+    // }
+
+
+    // arr.forEach(function(item) {
+    //     if(item > 50) {
+    //         newArr.push(item);
+    //     }
+    // })
+
+    // arr.forEach(item => {
+    //     if(item > 50) {
+    //         newArr.push(item);
+    //     }
+    // });
+
+    newArr = arr.filter(item => item > 50);
+
+    console.log(newArr);
+
+    let arr2 = [34, 56, 89, 90, 100, 45];
+    arr2.splice(2, 2);
+    console.log(arr2);
+</script>
+</html>

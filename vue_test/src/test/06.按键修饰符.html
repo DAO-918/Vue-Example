@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <!--@keyup.enter 表示enter键弹起的时候，事件被触发-->
+    <input type="text" v-model="name" @keyup.enter="getName">
+</div>
+</body>
+<script>
+    new Vue({
+        el: '#app',
+        data(){
+            return{
+                name:''
+            }
+        },
+        method:{
+            getName() {
+                console.log(this.name);
+            }
+
+        }
+    })
+</script>
+</html>
